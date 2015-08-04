@@ -1,0 +1,4 @@
+PROD                      = EXPRESS_C
+FILE                      = /opt/ibm/db2/V10.5
+LIC_AGREEMENT             = ACCEPT
+INSTALL_TYPE              = TYPICAL
