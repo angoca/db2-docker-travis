@@ -1,0 +1,18 @@
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - aria2
+      - curl
+      - libaio1
+      - lib32stdc++6
+      - libpam-ldap:i386
+before_install:
+ - curl --url https://raw.githubusercontent.com/wiki/angoca/db2-docker/db2-link-expc.md -s > /tmp/link ; cat /tmp/link | tail -1 > /tmp/link2 ; cat /tmp/link2
+ - cd /tmp ; aria2c -x 16 `cat /tmp/link2` ; tar zxvf v10.5_linuxx64_expc.tar.gz
+ - sudo ln -s /lib/i386-linux-gnu/libpam.so.0 /lib/libpam.so.0
+ 
+install:
+ - cd /tmp/expc ; ./db2prereqcheck -l -i
+ - sudo ./db2setup -r ${TRAVIS_BUILD_DIR}/db2.rsp || cat /tmp/db2setup.log
