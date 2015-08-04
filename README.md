@@ -1,2 +1,1 @@
-# db2-docker-travis
-Repository that uses DB2 in a Docker container
+This repository shows how to create a Docker container with a DB2 installation.
