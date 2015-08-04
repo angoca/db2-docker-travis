@@ -7,7 +7,7 @@ addons:
       - curl
       - libaio1
       - lib32stdc++6
-      - libpam-ldap:i386
+    #  - libpam-ldap:i386
       - libpam0g:i386
 before_install:
  - curl --url https://raw.githubusercontent.com/wiki/angoca/db2-docker/db2-link-expc.md -s > /tmp/link ; cat /tmp/link | tail -1 > /tmp/link2 ; cat /tmp/link2
