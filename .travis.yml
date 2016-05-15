@@ -17,3 +17,6 @@ before_install:
 install:
  - cd /tmp/expc ; ./db2prereqcheck -l -i
  - ./db2setup -r ${TRAVIS_BUILD_DIR}/db2.rsp || cat /tmp/db2setup_travis.log
+
+script:
+ - echo "Successful installation"
