@@ -4,7 +4,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t angoca/db2-install .
+  - docker pull angoca/db2-install
 
 script:
  - echo "Successful installation"
