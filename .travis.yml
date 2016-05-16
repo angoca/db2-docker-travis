@@ -10,5 +10,5 @@ before_install:
   - docker ps
 
 script:
- - docker run db2inst1 ./createInstance
- - docker run db2inst1 db2 "create db test"
+ - docker exec db2inst1 ./createInstance
+ - docker exec db2inst1 db2 "create db test"
