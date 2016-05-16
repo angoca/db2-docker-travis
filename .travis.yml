@@ -5,9 +5,10 @@ services:
 
 before_install:
   - docker pull angoca/db2-instance
-  - docker run -d --privileged=true --name="db2inst1" -p 50000:50000 angoca/db2-instance ./createInstance
   - docker images
+  - echo ./createInstance | docker run -i --privileged=true --name="db2inst1" -p 50001:50000 angoca/db2-instance
   - docker ps
+  - docker start $(docker ps -a -q)
 
 script:
- - docker exec db2inst1 db2 "create db test"
+ - docker exec $(docker ps -a -q) db2 "create db test"
