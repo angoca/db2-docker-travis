@@ -11,4 +11,6 @@ before_install:
   - docker start $(docker ps -a -q)
 
 script:
+ - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2start" db2inst1
  - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2 create db test" db2inst1
+ - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2 connect to test" db2inst1
