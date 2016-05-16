@@ -4,7 +4,8 @@ services:
   - docker
 
 before_install:
-  - docker pull angoca/db2-install
+  - docker pull angoca/db2-instance
+  - docker run -i -t --ipc="host" --cap-add IPC_LOCK --cap-add IPC_OWNER --name="db2inst1" -p 50000:50000 angoca/db2-instance:expc ./createInstance
 
 script:
- - echo "Successful installation"
+ - docker run db2inst1 db2 "create db test"
