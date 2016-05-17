@@ -24,7 +24,7 @@ script:
   - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2 create db test" db2inst1
   - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2 connect to test" db2inst1
   # Extract log4db2 and db2unit.
-  - docker exec $(docker ps -a -q) su -c "tar zxvf /tmp/log4db2.tar.gz ; tar zxvf /tmp/db2unit.tar.gz" db2inst1
+  - docker exec $(docker ps -a -q) su -c "pwd ; cd /tmp ; tar zxvf /tmp/log4db2.tar.gz ; tar zxvf /tmp/db2unit.tar.gz" db2inst1
   - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2 connect to test ; cd /tmp/log4db2 ; . ./install" db2inst1
   - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2 connect to test ; cd /tmp/db2unit ; . ./install" db2inst1
 
