@@ -10,7 +10,21 @@ before_install:
   - docker ps -a
   - docker start $(docker ps -a -q)
 
+  # Retrieves and extract log4db2
+  - cd ; wget https://github.com/angoca/log4db2/releases/download/log4db2-1-Beta-A/log4db2.tar.gz
+  - docker cp log4db2.tar.gz $(docker ps -a -q):/tmp
+
+  # Retrieves and extract db2unit
+  - cd ; wget https://github.com/angoca/db2unit/releases/download/db2unit-1/db2unit.tar.gz
+  - docker cp db2unit.tar.gz $(docker ps -a -q):/tmp
+
 script:
- - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2start" db2inst1
- - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2 create db test" db2inst1
- - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2 connect to test" db2inst1
+  # Starts the instance and creates a database.
+  - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2start" db2inst1
+  - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2 create db test" db2inst1
+  - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2 connect to test" db2inst1
+  # Extract log4db2 and db2unit.
+  - docker exec $(docker ps -a -q) su -c "tar zxvf /tmp/log4db2.tar.gz ; tar zxvf /tmp/db2unit.tar.gz" db2inst1
+  - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2 connect to test ; cd /tmp/log4db2 ; . ./install" db2inst1
+  - docker exec $(docker ps -a -q) su -c ". ~db2inst1/sqllib/db2profile ; db2 connect to test ; cd /tmp/db2unit ; . ./install" db2inst1
+
